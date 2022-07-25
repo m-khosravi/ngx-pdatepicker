@@ -1,12 +1,19 @@
 {
   "name": "ngx-pdatepicker",
-  "version": "0.0.0",
+  "version": "0.0.1",
+  "author": {
+    "name": "Mehdi Khosravi",
+    "email": "m-khosravi@outlook.com",
+    "url": "https://mehdi-khosravi.ir"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "build-library": "ng build ngx-pdatepicker",
+    "pack-lib": "cd dist/ngx-pdatepicker && npm pack"
   },
   "private": true,
   "dependencies": {
@@ -20,9 +27,11 @@
     "@angular/router": "^14.0.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
+    "jalali-moment": "^3.3.11",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
+    "@angular-devkit/build-angular": "^14.0.7",
     "@angular/cli": "~14.0.1",
     "@angular/compiler-cli": "^14.0.0",
     "@types/jasmine": "~4.0.0",
@@ -32,6 +41,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
+    "ng-packagr": "^14.0.0",
     "typescript": "~4.7.2"
   }
 }

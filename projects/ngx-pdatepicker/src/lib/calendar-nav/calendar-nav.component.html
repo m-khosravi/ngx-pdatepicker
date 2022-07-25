@@ -1,0 +1,49 @@
+<div class="dp-calendar-nav-container" [ngClass]="{
+    theme: theme,
+    'rtl': rtl,
+    'no-left-nav': !showLeftNav,
+    'no-right-nav': !showRightNav,
+    'has-secondary-left': showLeftSecondaryNav,
+    'has-secondary-right': showRightSecondaryNav}">
+    <button type="button"
+            class="dp-calendar-nav-right"
+            [hidden]="!showRightNav"
+            [attr.data-hidden]="!showRightNav"
+            [disabled]="rightNavDisabled"
+            (click)="rightNavClicked()">
+    </button>
+    <button type="button"
+            class="dp-calendar-secondary-nav-right fadeIn"
+            *ngIf="showRightSecondaryNav"
+            [disabled]="rightSecondaryNavDisabled"
+            (click)="rightSecondaryNavClicked()">
+    </button>
+
+    <div class="dp-nav-header">
+        <div [hidden]="isLabelClickable"
+            [attr.data-hidden]="isLabelClickable"
+            [innerText]="labels.join(',')">
+        </div>
+        <button type="button"
+                class="dp-nav-header-btn"
+                [hidden]="!isLabelClickable"
+                [attr.data-hidden]="!isLabelClickable"
+                (click)="labelClicked()">
+                <span *ngFor="let label of labels">{{ label }}</span>
+        </button>
+    </div>
+
+    <button type="button"
+            class="dp-calendar-secondary-nav-left fadeIn"
+            *ngIf="showLeftSecondaryNav"
+            [disabled]="leftSecondaryNavDisabled"
+            (click)="leftSecondaryNavClicked()">
+    </button>
+    <button type="button"
+            class="dp-calendar-nav-left"
+            [hidden]="!showLeftNav"
+            [attr.data-hidden]="!showLeftNav"
+            [disabled]="leftNavDisabled"
+            (click)="leftNavClicked()">
+    </button>
+</div>

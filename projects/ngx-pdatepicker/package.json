@@ -1,0 +1,17 @@
+{
+  "name": "ngx-pdatepicker",
+  "author": {
+    "name": "Mehdi Khosravi",
+    "email": "m-khosravi@outlook.com",
+    "url": "https://mehdi-khosravi.ir"
+  },
+  "version": "0.0.1",
+  "peerDependencies": {
+    "jalali-moment": "^3.3.11",
+    "@angular/common": "^9.0.0",
+    "@angular/core": "^9.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  }
+}

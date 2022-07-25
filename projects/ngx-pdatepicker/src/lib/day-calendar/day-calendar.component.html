@@ -1,0 +1,75 @@
+<dp-calendar-nav
+    [labels]="navLabel"
+    [showLeftNav]="showLeftNav"
+    [showRightNav]="showRightNav"
+    [showLeftSecondaryNav]="showLeftSecondaryNav"
+    [showRightSecondaryNav]="showRightSecondaryNav"
+    [isLabelClickable]="componentConfig.enableMonthSelector ?? true"
+    [theme]="theme"
+    [rtl]="isFarsi()"
+    [currentMode]="currentCalendarMode"
+    (onLeftNav)="onNavClick('left')"
+    (onRightNav)="onNavClick('right')"
+    (onLeftSecondaryNav)="onLeftSecondaryNavClick()"
+    (onRightSecondaryNav)="onRightSecondaryNavClick()"
+    (onLabelClick)="LabelClicked()">
+</dp-calendar-nav>
+
+<div class="dp-day-calendar-container">
+    <div class="main-wrapper" [ngClass]="{
+        'rtl': isFarsi(),
+        'day': currentCalendarMode === CalendarMode.Day,
+        'month': currentCalendarMode === CalendarMode.Month,
+        'time': currentCalendarMode === CalendarMode.Time,
+        'daytime': currentCalendarMode === CalendarMode.DayTime}">
+        <dp-month-calendar
+            [theme]="theme"
+            [config]="monthCalendarConfig"
+            [displayDate]="_currentDateView"
+            (onSelect)="monthSelected($event)">
+        </dp-month-calendar>
+
+        <div [class.months]="months.length > 1">
+            <div class="dp-calendar-wrapper" *ngFor="let month of months" [ngClass]="{'dp-hide-near-month': !componentConfig.showNearMonthDays, 'rtl': isFarsi()}">
+                <!-- <div class="dp-monthname">{{ month.name }}</div> -->
+                <div class="dp-weekdays">
+                    <span class="dp-calendar-weekday" *ngFor="let weekday of weekdays" [innerText]="getWeekdayName(weekday)"></span>
+                </div>
+                <div class="dp-calendar-week" *ngFor="let week of month.items; let j = index">
+                    <span class="dp-week-number" *ngIf="componentConfig.showWeekNumbers" [innerText]="week[0].date.isoWeek()"></span>
+                    <button
+                        type="button"
+                        class="dp-calendar-day slideIn"
+                        *ngFor="let day of week; let i = index"
+                        [ngStyle]="{'animation-delay.ms': j * i * 10}"
+                        [attr.data-date]="day.date.format(componentConfig.format)"
+                        (click)="dayClicked(day)"
+                        [disabled]="day.disabled"
+                        [ngClass]="getDayBtnCssClass(day)"
+                        [innerHtml]="getDayBtnText(day)">
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <dp-time-select
+            [theme]="theme"
+            [config]="timeSelectConfig"
+            [ngModel]="_selected && _selected[0]"
+            (onChange)="TimeChanged($event)">
+        </dp-time-select>
+    </div>
+</div>
+
+<dp-calendar-footer
+    *ngIf="componentConfig.showGoToCurrent || componentConfig.showSwitchLocale || componentConfig.showTimeView"
+    [showSwitchLocale]="_showSwitchLocale"
+    [showTimeView]="_showTimeView"
+    [showGoToCurrent]="_shouldShowCurrent"
+    [theme]="theme"
+    [currentLocale]="componentConfig.locale"
+    [currentMode]="currentCalendarMode"
+    (onSwitchLocale)="switchLocale()"
+    (onTimeView)="TimeViewClicked()"
+    (onGoToCurrent)="goToCurrent()">
+</dp-calendar-footer>

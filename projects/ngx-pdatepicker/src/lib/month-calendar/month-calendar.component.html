@@ -1,0 +1,17 @@
+<!-- <div class="dp-month-calendar-container"> -->
+    <div class="dp-calendar-wrapper" [ngClass]="{'rtl':isFarsi()}">
+        <div class="dp-months-row" *ngFor="let monthRow of yearMonths">
+            <button
+                type="button"
+                class="dp-calendar-month fadeIn"
+                [ngStyle]="{'animation-delay.ms': i * 40}"
+                *ngFor="let month of monthRow; let i = index"
+                [attr.data-date]="month.date.format(componentConfig.format)"
+                [disabled]="month.disabled"
+                [ngClass]="getMonthBtnCssClass(month)"
+                (click)="monthClicked(month)"
+                [innerText]="month.text">
+            </button>
+        </div>
+    </div>
+<!-- </div> -->
