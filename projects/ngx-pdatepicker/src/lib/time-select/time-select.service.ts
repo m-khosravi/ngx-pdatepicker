@@ -45,9 +45,9 @@ export class TimeSelectService {
     }
 
     getTimeFormat(config: ITimeSelectConfigInternal): string {
-        return (config.showTwentyFourHours ? (config.hours24Format ?? '') : (config.hours12Format ?? ''))
+        return (config.showTwentyFourHours ? config.hours24Format : config.hours12Format)
             + config.timeSeparator + config.minutesFormat
-            + (config.showSeconds ? (config.timeSeparator + (config.secondsFormat ?? '')) : '')
+            + (config.showSeconds ? (config.timeSeparator + config.secondsFormat) : '')
             + (config.showTwentyFourHours ? '' : ' ' + config.meridiemFormat);
     }
 
@@ -80,10 +80,10 @@ export class TimeSelectService {
         let amount: number = 1;
         switch (unit) {
             case 'minute':
-                amount = config.minutesInterval ?? 5;
+                amount = config.minutesInterval;
                 break;
             case 'second':
-                amount = config.secondsInterval ?? 5;
+                amount = config.secondsInterval;
                 break;
         }
         return time.clone().subtract(amount, unit);
@@ -93,10 +93,10 @@ export class TimeSelectService {
         let amount: number = 1;
         switch (unit) {
             case 'minute':
-                amount = config.minutesInterval ?? 5;
+                amount = config.minutesInterval;
                 break;
             case 'second':
-                amount = config.secondsInterval ?? 5;
+                amount = config.secondsInterval;
                 break;
         }
         return time.clone().add(amount, unit);

@@ -129,7 +129,5 @@ export class DatePickerService {
             case 'daytime':
                 return dateFormat + ' ' + timeFormat;
         }
-
-        return 'day';
     }
 }

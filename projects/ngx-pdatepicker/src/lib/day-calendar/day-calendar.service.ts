@@ -72,7 +72,7 @@ export class DayCalendarService {
 
     generateMonthArray(config: IDayCalendarConfigInternal, month: Moment, selected: Moment[]): IDay[][] {
         let monthArray: IDay[][] = [];
-        const firstDayOfWeekIndex = this.DAYS.indexOf(config.firstDayOfWeek ?? 'su');
+        const firstDayOfWeekIndex = this.DAYS.indexOf(config.firstDayOfWeek);
         const firstDayOfBoard = month.clone().startOf('month');
         for (let i = 0; i < 8 && (firstDayOfBoard.day() !== firstDayOfWeekIndex); i++) {
             firstDayOfBoard.subtract(1, 'day');
@@ -126,7 +126,7 @@ export class DayCalendarService {
         return monthArray;
     }
 
-    generateWeekdays(firstDayOfWeek: WeekDays = 'sa', locale?: string): Moment[] {
+    generateWeekdays(firstDayOfWeek: WeekDays, locale?: string): Moment[] {
         const weekdayNames: { [key: string]: Moment } = ['su', 'mo', 'tu', 'we', 'th', 'fr', 'sa'].reduce((acc, d, i) => {
             const m = moment();
             if (locale) {
@@ -161,12 +161,12 @@ export class DayCalendarService {
     }
 
     // todo:: add unit tests
-    shouldShowLeft(min?: Moment, currentMonthView?: Moment): boolean {
+    shouldShowLeft(min: Moment, currentMonthView: Moment): boolean {
         return min ? min.isBefore(currentMonthView, 'month') : true;
     }
 
     // todo:: add unit tests
-    shouldShowRight(max?: Moment, currentMonthView?: Moment): boolean {
+    shouldShowRight(max: Moment, currentMonthView: Moment): boolean {
         return max ? max.isAfter(currentMonthView, 'month') : true;
     }
 

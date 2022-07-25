@@ -442,7 +442,7 @@ export class DatePickerComponent implements OnChanges,
             this.onDateClick();
         }
         // console.log(this._mode);
-        
+
         // if (close) this.hideCalendar();
     }
 

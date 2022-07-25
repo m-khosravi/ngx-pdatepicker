@@ -40,7 +40,7 @@ export class MonthCalendarService {
         return _config;
     }
 
-    generateYear(config: IMonthCalendarConfig, year: Moment, selected: Moment[] = []): IMonth[][] {
+    generateYear(config: IMonthCalendarConfig, year: Moment, selected: Moment[] = null): IMonth[][] {
         const index = year.clone().startOf('year');
 
         return this.utilsService.createArray(3).map(() => {

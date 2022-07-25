@@ -17,9 +17,9 @@ import { ECalendarMode } from '../common/models/calendar.model';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CalendarNavComponent {
-    @Input() labels: string[] = [];
-    @Input() rtl: boolean = true;
-    @Input() currentMode: ECalendarMode = ECalendarMode.Day;
+    @Input() labels: string[];
+    @Input() rtl: boolean;
+    @Input() currentMode: ECalendarMode;
     @Input() isLabelClickable: boolean = false;
     @Input() showLeftNav: boolean = true;
     @Input() showLeftSecondaryNav: boolean = false;
@@ -29,7 +29,7 @@ export class CalendarNavComponent {
     @Input() leftSecondaryNavDisabled: boolean = false;
     @Input() rightNavDisabled: boolean = false;
     @Input() rightSecondaryNavDisabled: boolean = false;
-    @HostBinding('class') @Input() theme: string = "";
+    @HostBinding('class') @Input() theme: string;
 
     @Output() onLeftNav: EventEmitter<null> = new EventEmitter();
     @Output() onLeftSecondaryNav: EventEmitter<null> = new EventEmitter();

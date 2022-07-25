@@ -88,9 +88,9 @@ export class DayCalendarComponent implements OnInit, OnChanges, ControlValueAcce
     componentConfig: IDayCalendarConfigInternal;
     timeSelectConfig: ITimeSelectConfig;
     _selected: Moment[];
-    months:any[] = [];
+    months = [];
     weekdays: Moment[];
-    _currentDateView?: Moment;
+    _currentDateView: Moment;
     inputValue: CalendarValue;
     inputValueType: ECalendarValue;
     validateFn: DateValidator;
@@ -131,7 +131,7 @@ export class DayCalendarComponent implements OnInit, OnChanges, ControlValueAcce
     }
 
     get currentDateView(): Moment {
-        return this._currentDateView ?? moment();
+        return this._currentDateView;
     }
 
     constructor(public readonly dayCalendarService: DayCalendarService,
@@ -165,8 +165,8 @@ export class DayCalendarComponent implements OnInit, OnChanges, ControlValueAcce
         this.monthCalendarConfig = this.dayCalendarService.getMonthCalendarConfig(this.componentConfig);
         this.timeSelectConfig = this.dayPickerService.getTimeConfigService(this.componentConfig);
         this._shouldShowCurrent = this.shouldShowCurrent();
-        this._showSwitchLocale = this.componentConfig.showSwitchLocale ?? this._showSwitchLocale;
-        this._showTimeView = this.componentConfig.showTimeView ?? this._showTimeView;
+        this._showSwitchLocale = this.componentConfig.showSwitchLocale && this._showSwitchLocale;
+        this._showTimeView = this.componentConfig.showTimeView && this._showTimeView;
         this.toggleCalendarMode(this.modeToEcalendarMode(this.mode));
         this.secondaryNavVisibility();
     }
@@ -177,7 +177,7 @@ export class DayCalendarComponent implements OnInit, OnChanges, ControlValueAcce
 
     setMonths(current: Moment) {
         this.months = [];
-        if (this.componentConfig.months && this.componentConfig.months > 1) {
+        if (this.componentConfig.months > 1) {
             for (let i = 0; i < this.componentConfig.months; i++) {
                 let next = current.clone().add(i , 'month');
                 let val = i === 0 ? current : next;
@@ -204,7 +204,7 @@ export class DayCalendarComponent implements OnInit, OnChanges, ControlValueAcce
         }
         return _result;
     }
-
+    
     ecalendarModeToMode(mode: ECalendarMode): CalendarMode {
         let _result: CalendarMode;
         switch (mode) {
@@ -273,19 +273,19 @@ export class DayCalendarComponent implements OnInit, OnChanges, ControlValueAcce
 
     processOnChangeCallback(value: Moment[]): CalendarValue {
         return this.utilsService.convertFromMomentArray(
-            this.componentConfig.format ?? '',
+            this.componentConfig.format,
             value,
             this.componentConfig.returnedValueType || this.inputValueType,
-            this.componentConfig.locale ?? 'fa'
+            this.componentConfig.locale
         );
     }
 
     initValidators() {
         this.validateFn = this.utilsService.createValidator(
             { minDate: this.minDate, maxDate: this.maxDate },
-            this.componentConfig.format ?? '',
+            this.componentConfig.format,
             'day',
-            this.componentConfig.locale ?? 'fa'
+            this.componentConfig.locale
         );
 
         this.onChangeCallback(this.processOnChangeCallback(this.selected));
@@ -294,7 +294,7 @@ export class DayCalendarComponent implements OnInit, OnChanges, ControlValueAcce
     dayClicked(day: IDay) {
         if (day.selected && !this.componentConfig.unSelectOnClick) return;
 
-        this.selected = this.utilsService.updateSelected(this.componentConfig.allowMultiSelect ?? false, this.selected, day);
+        this.selected = this.utilsService.updateSelected(this.componentConfig.allowMultiSelect, this.selected, day);
         this.setMonths(this.currentDateView);
         this.onSelect.emit(day);
     }
@@ -305,11 +305,11 @@ export class DayCalendarComponent implements OnInit, OnChanges, ControlValueAcce
 
     getDayBtnCssClass(day: IDay): { [klass: string]: boolean } {
         const cssClasses: { [klass: string]: boolean } = {
-            'dp-selected': day.selected ?? false,
-            'dp-current-month': day.currentMonth ?? false,
-            'dp-prev-month': day.prevMonth ?? false,
-            'dp-next-month': day.nextMonth ?? false,
-            'dp-current-day': day.currentDay ?? false
+            'dp-selected': day.selected,
+            'dp-current-month': day.currentMonth,
+            'dp-prev-month': day.prevMonth,
+            'dp-next-month': day.nextMonth,
+            'dp-current-day': day.currentDay
         };
         const customCssClass: string = this.dayCalendarService.getDayBtnCssClass(this.componentConfig, day.date);
         if (customCssClass) {
@@ -318,7 +318,7 @@ export class DayCalendarComponent implements OnInit, OnChanges, ControlValueAcce
 
         return cssClasses;
     }
-
+    
     onNavClick(side: string) {
         let _side = side.charAt(0).toUpperCase() + side.slice(1).toLowerCase();
         const from = this.currentDateView.clone();
@@ -329,11 +329,11 @@ export class DayCalendarComponent implements OnInit, OnChanges, ControlValueAcce
     }
 
     onLeftSecondaryNavClick() {
-        let navigateBy = this.componentConfig.multipleYearsNavigateBy ?? 5;
+        let navigateBy = this.componentConfig.multipleYearsNavigateBy;
         const isOutsideRange = this.componentConfig.min &&
             this.currentDateView.year() - this.componentConfig.min.year() < navigateBy;
 
-        if (isOutsideRange && this.componentConfig.min) {
+        if (isOutsideRange) {
             navigateBy = this.currentDateView.year() - this.componentConfig.min.year();
         }
 
@@ -344,11 +344,11 @@ export class DayCalendarComponent implements OnInit, OnChanges, ControlValueAcce
     }
 
     onRightSecondaryNavClick() {
-        let navigateBy = this.componentConfig.multipleYearsNavigateBy ?? 5;
+        let navigateBy = this.componentConfig.multipleYearsNavigateBy;
         const isOutsideRange = this.componentConfig.max &&
             this.componentConfig.max.year() - this.currentDateView.year() < navigateBy;
 
-        if (isOutsideRange && this.componentConfig.max) {
+        if (isOutsideRange) {
             navigateBy = this.componentConfig.max.year() - this.currentDateView.year();
         }
 
@@ -395,7 +395,7 @@ export class DayCalendarComponent implements OnInit, OnChanges, ControlValueAcce
 
     shouldShowCurrent(): boolean {
         return this.utilsService.shouldShowCurrent(
-            this.componentConfig.showGoToCurrent ?? true,
+            this.componentConfig.showGoToCurrent,
             'day',
             this.componentConfig.min,
             this.componentConfig.max
@@ -406,12 +406,12 @@ export class DayCalendarComponent implements OnInit, OnChanges, ControlValueAcce
         if (this.currentCalendarMode === ECalendarMode.Time) {
             this._selected[0].set({
                 'hour' : moment().hour(),
-                'minute'  : moment().minute(),
+                'minute'  : moment().minute(), 
                 'second' : moment().second()
             });
             this.selected = this._selected;
-
-        } else this.currentDateView = moment().locale(this.componentConfig.locale ?? 'fa');
+            
+        } else this.currentDateView = moment().locale(this.componentConfig.locale);
         this.onGoToCurrent.emit(this.currentCalendarMode);
     }
 
@@ -445,7 +445,7 @@ export class DayCalendarComponent implements OnInit, OnChanges, ControlValueAcce
             const currentConf: IDayCalendarConfigInternal = this.dayCalendarService.getConfig(config.currentValue);
 
             if (this.utilsService.shouldResetCurrentView(prevConf, currentConf)) {
-                this._currentDateView = moment();
+                this._currentDateView = null;
             }
         }
     }

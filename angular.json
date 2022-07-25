@@ -10,7 +10,7 @@
       "prefix": "lib",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
             "project": "projects/ngx-pdatepicker/ng-package.json"
           },
@@ -30,6 +30,46 @@
             "main": "projects/ngx-pdatepicker/src/test.ts",
             "tsConfig": "projects/ngx-pdatepicker/tsconfig.spec.json",
             "karmaConfig": "projects/ngx-pdatepicker/karma.conf.js"
+          }
+        }
+      }
+    },
+    "ngx-sample": {
+      "projectType": "library",
+      "root": "projects/ngx-sample",
+      "sourceRoot": "projects/ngx-sample/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ngx-sample/tsconfig.lib.json",
+            "project": "projects/ngx-sample/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ngx-sample/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-sample/src/test.ts",
+            "tsConfig": "projects/ngx-sample/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-sample/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ngx-sample/tsconfig.lib.json",
+              "projects/ngx-sample/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }

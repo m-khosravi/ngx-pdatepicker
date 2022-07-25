@@ -1,4 +1,3 @@
-/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
   "compileOnSave": false,
   "compilerOptions": {
@@ -17,6 +16,13 @@
     "paths": {
       "ngx-pdatepicker": [
         "dist/ngx-pdatepicker"
+      ],
+      "sample": [
+        "dist/sample"
+      ],
+      "ngx-sample": [
+        "dist/ngx-sample/ngx-sample",
+        "dist/ngx-sample"
       ]
     },
     "declaration": false,

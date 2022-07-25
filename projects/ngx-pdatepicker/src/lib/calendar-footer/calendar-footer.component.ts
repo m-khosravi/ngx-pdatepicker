@@ -20,11 +20,11 @@ export class CalendarFooterComponent {
     @Input() showGoToCurrent: boolean = true;
     @Input() showSwitchLocale: boolean = true;
     @Input() showTimeView: boolean = true;
-    @Input() currentLocale: string = 'fa';
+    @Input() currentLocale: string;
     // @Input() currentMode: ECalendarMode;
     @Input('currentMode') set currentMode(value: ECalendarMode) { this._currentMode = value; }
 
-    @HostBinding('class') @Input() theme: string = "";
+    @HostBinding('class') @Input() theme: string;
 
     @Output() onGoToCurrent: EventEmitter<null> = new EventEmitter();
     @Output() onSwitchLocale: EventEmitter<null> = new EventEmitter();
@@ -33,8 +33,8 @@ export class CalendarFooterComponent {
     get currentMode(): ECalendarMode {
         return this._currentMode;
     }
-
-    _currentMode: ECalendarMode = ECalendarMode.Day;
+    
+    _currentMode: ECalendarMode;
     CalendarMode = ECalendarMode;
 
     GoToCurrent() {
@@ -47,7 +47,7 @@ export class CalendarFooterComponent {
 
     TimeView() {
         console.log(this._currentMode);
-
+        
         this.onTimeView.emit();
     }
 }

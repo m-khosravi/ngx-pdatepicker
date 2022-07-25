@@ -32,7 +32,7 @@ describe('Component: MonthCalendarComponent', () => {
 
     describe('should have the right CSS classes for', () => {
         const defaultMonth: IMonth = {
-            date: moment(),
+            date: undefined,
             selected: false,
             currentMonth: false,
             disabled: false,

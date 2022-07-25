@@ -39,7 +39,7 @@ describe('Component: DayCalendarComponent', () => {
 
   describe('should have the right CSS classes for', () => {
     const defaultDay: IDay = {
-      date: moment(),
+      date: undefined,
       selected: false,
       currentMonth: false,
       prevMonth: false,

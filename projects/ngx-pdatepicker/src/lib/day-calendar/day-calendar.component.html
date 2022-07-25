@@ -4,7 +4,7 @@
     [showRightNav]="showRightNav"
     [showLeftSecondaryNav]="showLeftSecondaryNav"
     [showRightSecondaryNav]="showRightSecondaryNav"
-    [isLabelClickable]="componentConfig.enableMonthSelector ?? true"
+    [isLabelClickable]="componentConfig.enableMonthSelector"
     [theme]="theme"
     [rtl]="isFarsi()"
     [currentMode]="currentCalendarMode"
@@ -28,7 +28,7 @@
             [displayDate]="_currentDateView"
             (onSelect)="monthSelected($event)">
         </dp-month-calendar>
-
+        
         <div [class.months]="months.length > 1">
             <div class="dp-calendar-wrapper" *ngFor="let month of months" [ngClass]="{'dp-hide-near-month': !componentConfig.showNearMonthDays, 'rtl': isFarsi()}">
                 <!-- <div class="dp-monthname">{{ month.name }}</div> -->
