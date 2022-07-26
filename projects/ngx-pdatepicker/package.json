@@ -5,7 +5,21 @@
     "email": "m-khosravi@outlook.com",
     "url": "https://mehdi-khosravi.ir"
   },
-  "version": "9.0.1",
+  "keywords": [
+    "angular",
+    "jalali",
+    "shamsi",
+    "khorshidi",
+    "persian",
+    "date",
+    "picker",
+    "datepicker",
+    "datepicker farsi",
+    "typescript",
+    "ts",
+    "farsi"
+  ],
+  "version": "9.0.2",
   "peerDependencies": {
     "jalali-moment": "^3.3.11",
     "@angular/common": "^9.0.0",

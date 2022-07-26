@@ -1,6 +1,6 @@
 {
   "name": "ngx-pdatepicker",
-  "version": "9.0.1",
+  "version": "9.0.2",
   "author": {
     "name": "Mehdi Khosravi",
     "email": "m-khosravi@outlook.com",
@@ -16,6 +16,20 @@
     "pack-lib": "cd dist/ngx-pdatepicker && npm pack"
   },
   "private": true,
+  "keywords": [
+    "angular",
+    "jalali",
+    "shamsi",
+    "khorshidi",
+    "persian",
+    "date",
+    "picker",
+    "datepicker",
+    "datepicker farsi",
+    "typescript",
+    "ts",
+    "farsi"
+],
   "dependencies": {
     "@angular/animations": "^9.1.13",
     "@angular/common": "^9.1.13",
